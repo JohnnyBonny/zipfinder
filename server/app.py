@@ -7,6 +7,11 @@ DEBUG = app.debug
 API_KEY = "Bearer sW9VtHDsn6h_dkjQtZLewCsb2v1Cg9dHCoSX2oJHJXeVYvIuxJbCbO0daDiFe40iQG8rckCFOR1e_SXWSAMsCIfagLOjm0btopnwLc60UGEv1ak3Wz3pl_IlFgxgZHYx"
 URL = "https://api.yelp.com/v3/businesses/search"
 
+headers = {
+    "accept": "application/json",
+    "Authorization": {API_KEY}
+}
+
 #####################################################
 # CORS section
 #####################################################
@@ -44,7 +49,11 @@ def hello():
 
 @app.route('/getrestaurant')
 def restaurant():
-    return "restaurant"
+    zipcode = "90277" # Test Value
+    URL = URL + '?location=' + zipcode + "&categories=food&sort_by=best_match&limit=20"
+
+    response = requests.get(URL, headers=headers)
+    return response.text
     
 
 if __name__ == '__main__':
