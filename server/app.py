@@ -4,7 +4,9 @@ from flask import Flask, request, jsonify, make_response
 
 app = Flask(__name__)
 DEBUG = app.debug
-API_KEY = "sW9VtHDsn6h_dkjQtZLewCsb2v1Cg9dHCoSX2oJHJXeVYvIuxJbCbO0daDiFe40iQG8rckCFOR1e_SXWSAMsCIfagLOjm0btopnwLc60UGEv1ak3Wz3pl_IlFgxgZHYx"
+API_KEY = "Bearer sW9VtHDsn6h_dkjQtZLewCsb2v1Cg9dHCoSX2oJHJXeVYvIuxJbCbO0daDiFe40iQG8rckCFOR1e_SXWSAMsCIfagLOjm0btopnwLc60UGEv1ak3Wz3pl_IlFgxgZHYx"
+URL = "https://api.yelp.com/v3/businesses/search"
+
 #####################################################
 # CORS section
 #####################################################
@@ -38,6 +40,11 @@ def after_request_func(response):
 @app.route('/')
 def hello():
     return 'Welcome to Zipfinder Server Home page'
+
+
+@app.route('/getrestaurant')
+def restaurant():
+    return "restaurant"
     
 
 if __name__ == '__main__':
