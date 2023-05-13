@@ -4,7 +4,7 @@ from flask import Flask, request, jsonify, make_response
 
 app = Flask(__name__)
 DEBUG = app.debug
-
+API_KEY = "sW9VtHDsn6h_dkjQtZLewCsb2v1Cg9dHCoSX2oJHJXeVYvIuxJbCbO0daDiFe40iQG8rckCFOR1e_SXWSAMsCIfagLOjm0btopnwLc60UGEv1ak3Wz3pl_IlFgxgZHYx"
 #####################################################
 # CORS section
 #####################################################
