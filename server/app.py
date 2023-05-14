@@ -5,7 +5,7 @@ from flask_caching import Cache
 import requests
 import random
 
-app = Flask(__name__, template_folder='../server/templates')
+app = Flask(__name__,template_folder= 'template')
 DEBUG = app.debug
 app.config["SECRET_KEY"] = "verysecretkey"
 app.config["CACHE_TYPE"] = "SimpleCache"
@@ -100,7 +100,7 @@ def add_zipcode():
         cache.set("zipcode", req)
         return "Your zipcode is: " + cache.get("zipcode")
 
-    return render_template("templates/form.html")
+    return render_template("form.html")
 
 @app.route('/getnames')
 def getnames():
@@ -188,6 +188,7 @@ def getisclosed():
 
     return output
 
+"""
 @app.route('/geturl')
 def geturl():
     #first index is the category
@@ -200,6 +201,36 @@ def geturl():
         output.append(cache.get("categories")[category][rand_business]["url"])
 
     return output
+"""
+@app.route('/sendjson')
+def sendjson():
+    output = {}
+    output["RESULT"] = []
+
+    try:
+        for category in range(4):
+            rand_business = random.randrange(0, 19)
+            p = (cache.get("categories")[category][rand_business])
+            name = p["name"]
+            address = p["location"]["display_address"]
+            imageurl = p["image_url"]
+            rating = p["rating"]
+            url = p["url"]
+            if 'price' in p:
+                price = p['price']
+            else:
+                price = "N/A"
+
+            output["MESSAGE"] = "Successful retrieval"
+
+            output["RESULT"].append({"name": name, "address": address, "imageurl": imageurl, "rating": rating, "url": url, "price": price})
+            status = 200
+    except Exception as e:
+        print(e)
+        output["MESSAGE"] = f"Exception {e}"
+        status = 500
+
+    return jsonify(output), status
 
 if __name__ == '__main__':
     app.run()
