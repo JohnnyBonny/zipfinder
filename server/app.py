@@ -1,6 +1,7 @@
 # Hello world!
 import os
 from flask import Flask, request, jsonify, make_response
+import requests
 
 app = Flask(__name__)
 DEBUG = app.debug
@@ -9,7 +10,7 @@ URL = "https://api.yelp.com/v3/businesses/search"
 
 headers = {
     "accept": "application/json",
-    "Authorization": {API_KEY}
+    "Authorization": API_KEY
 }
 
 #####################################################
@@ -47,12 +48,12 @@ def hello():
     return 'Welcome to Zipfinder Server Home page'
 
 
-@app.route('/getrestaurant')
+@app.route('/getrestaurant', methods=['GET'])
 def restaurant():
     zipcode = "90277" # Test Value
-    URL = URL + '?location=' + zipcode + "&categories=food&sort_by=best_match&limit=20"
+    url = URL + '?location=' + zipcode + "&categories=food&sort_by=best_match&limit=20"
 
-    response = requests.get(URL, headers=headers)
+    response = requests.get(url, headers=headers)
     return response.text
     
 
