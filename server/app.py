@@ -58,6 +58,25 @@ def restaurant():
     url = URL + '?location=' + zipcode + "&categories=food&sort_by=best_match&limit=20"
 
     response = requests.get(url, headers=headers)
+    session["food"] = response.json()["businesses"]
+
+    url = URL + '?location=' + zipcode + "&categories=food&sort_by=best_match&limit=20"
+
+    response = requests.get(url, headers=headers)
+    session["test2"] = response.json()["businesses"]
+
+    url = URL + '?location=' + zipcode + "&categories=food&sort_by=best_match&limit=20"
+
+    response = requests.get(url, headers=headers)
+    session["test3"] = response.json()["businesses"]
+
+
+    url = URL + '?location=' + zipcode + "&categories=food&sort_by=best_match&limit=20"
+
+    response = requests.get(url, headers=headers)
+    session["test4"] = response.json()["businesses"]
+
+
     length = len(response.json()["businesses"])
     rand_business = random.randrange(0, length)
     session["test"] = response.json()["businesses"][rand_business]
@@ -65,7 +84,7 @@ def restaurant():
 
 @app.route('/testsession')
 def testsession():
-    return session["test"]
+    return session["food"][0]
     
 
 if __name__ == '__main__':
