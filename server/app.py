@@ -87,7 +87,7 @@ def storecache():
 
     #session["test"] = response.json()["businesses"][rand_business]
 
-    return "Success!" #response.json()["businesses"][rand_business]["name"]
+    return sendjson() #response.json()["businesses"][rand_business]["name"]
 
 @app.route('/testsession')
 def testsession():
@@ -96,8 +96,18 @@ def testsession():
 @app.route('/addzipcode', methods=['GET', 'POST'])
 def add_zipcode():
     if request.method == "POST":
-        req = request.json.get("body")
-        cache.set("zipcode", req)
+        if request.is_json:
+            #print(f"Request is: {request}, type is {type(request)}")
+            #print(f"Is it a json: {request.is_json}")
+            req = request.json.get("value")
+            #print(f"Req is: {req}")
+            #print(f"Type of request: {type(req)}\n Request contents:{req}")
+            cache.set("zipcode", req)
+        else:
+            data = json.loads(request.data)
+            req = data.get("value")
+            #print(f"Handled malformed json: {request}")
+            cache.set("zipcode", req)
         return "Your zipcode is: " + cache.get("zipcode")
 
     return storecache()
