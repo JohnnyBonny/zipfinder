@@ -43,16 +43,19 @@ function App() {
     }
  }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    fetch('http://127.0.0.1:5000/addzipcode', {
+    await fetch('http://127.0.0.1:5000/addzipcode', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
       },
       body: JSON.stringify({value: value}),
     })
-    toDisplay = getReplyAsynch()
+    setTimeout(() => {
+      console.log('1 second passed; reaching out for reply.');
+    }, 1000);
+    toDisplay = await getReplyAsynch()
     console.log(toDisplay)
       //.then(res => console.log(res))
       //.then(res => res.json())

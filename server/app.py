@@ -61,38 +61,54 @@ def hello():
 def storecache():
     zipcode = cache.get("zipcode")
 
-    if type(zipcode) == None:
+    if type(zipcode) == type(None):
         return
 
+    zipcode = zipcode['value']
     categories = []
-    print(f"Zipcode type: {type(zipcode)} and value: {zipcode}")
-    print(f"URL: {URL}")
+    print(f"Zipcode type: {type(zipcode)} and value: {zipcode}", flush=True)
+    print(f"URL: {URL}", flush=True)
     url = URL + '?location=' + zipcode + "&categories=food%2Crestaurants%20&sort_by=best_match&limit=20"
 
     response = requests.get(url, headers=headers)
+    # print(f"Response: {response}")
+    # print(f"Response.json (#1): {response.json()}")
+    # print(f"Response.json (#2): {response.json()}")
+    # if type(response) == None:
+    #     return
+    print("CCC")
     categories.append(response.json()["businesses"])
 
-    url = URL + '?location=' + zipcode + "&categories=active&sort_by=best_match&limit=20"
+    # url = URL + '?location=' + zipcode + "&categories=active&sort_by=best_match&limit=20"
 
-    response = requests.get(url, headers=headers)
-    categories.append(response.json()["businesses"])
+    # response = requests.get(url, headers=headers)
+    # # if type(response) == None:
+    # #     return
+    # categories.append(response.json()["businesses"])
 
-    url = URL + '?location=' + zipcode + "&categories=arts&sort_by=best_match&limit=20"
+    # url = URL + '?location=' + zipcode + "&categories=arts&sort_by=best_match&limit=20"
 
-    response = requests.get(url, headers=headers)
-    categories.append(response.json()["businesses"])
+    # response = requests.get(url, headers=headers)
+    # # if type(response) == None:
+    # #     return
+    # categories.append(response.json()["businesses"])
 
 
-    url = URL + '?location=' + zipcode + "&categories=shopping&sort_by=best_match&limit=20"
+    # url = URL + '?location=' + zipcode + "&categories=shopping&sort_by=best_match&limit=20"
 
-    response = requests.get(url, headers=headers)
-    categories.append(response.json()["businesses"])
+    # response = requests.get(url, headers=headers)
+    # # if type(response) == None:
+    # #     return
+    # categories.append(response.json()["businesses"])
+    print("AAA")
 
     cache.set("categories", categories)
 
     #session["test"] = response.json()["businesses"][rand_business]
 
-    return sendjson() #response.json()["businesses"][rand_business]["name"]
+    print("BBB")
+
+    return {'categories': categories} #sendjson() #response.json()["businesses"][rand_business]["name"]
 
 @app.route('/testsession')
 def testsession():
@@ -102,20 +118,20 @@ def testsession():
 def add_zipcode():
     if request.method == "POST":
         if request.is_json:
-            print(f"Request is: {request}, type is {type(request)}")
-            print(f"Is it a json: {request.is_json}")
-            req = request.json.get("value")
-            print(f"Req is: {req}")
-            print(f"Type of request: {type(req)}\n Request contents:{req}")
+            print(f"Request is: {request}, type is {type(request)}", flush=True)
+            print(f"Is it a json: {request.is_json}", flush=True)
+            req = request.get_json("value")
+            print(f"Req is: {req}", flush=True)
+            print(f"Type of request: {type(req)}\n Request contents:{req}", flush=True)
             cache.set("zipcode", req)
         else:
             data = json.loads(request.data)
             req = data.get("value")
-            print(f"Handled malformed json: {request}")
+            print(f"Handled malformed json: {request}", flush=True)
             cache.set("zipcode", req)
         #return "Your zipcode is: " + cache.get("zipcode")
-
-    return storecache()
+    print("--BENEATH POST--", flush=True)
+    return storecache() or {}
 
 @app.route('/testzipcode', methods=['GET', 'POST'])
 def test_zipcode():
@@ -233,7 +249,11 @@ def sendjson():
 
     try:
         for category in range(4):
-            c = (cache.get("catgories")[category])
+            c = (cache.get("catgories"))
+            if c == None:
+                c = []
+            else:
+                c = c[category]
             rand_business = random.randrange(0, min(19, len(c)))
             p = c[rand_business]
             name = p["name"]
