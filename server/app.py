@@ -78,8 +78,8 @@ def storecache():
     #     return
     print("CCC")
     tmp = response.json()["businesses"]
-    print(tmp)
-    print(len(tmp))
+    #print(tmp)
+    #print(len(tmp))
     categories.append(response.json()["businesses"])
 
     url = URL + '?location=' + zipcode + "&categories=active&sort_by=best_match&limit=20"
@@ -114,6 +114,7 @@ def storecache():
     for i in range(len(categories)):
         randy = random.randrange(0, min(19, len(categories[i])))
         categories[i] = categories[i][randy]
+        print(f"{categories[i]} +\n-----\n")
 
     return {'categories': categories} #sendjson() #response.json()["businesses"][rand_business]["name"]
 

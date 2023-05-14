@@ -34,9 +34,13 @@ function App() {
     try {
       const response = await fetch('http://127.0.0.1:5000/addzipcode');
       console.log(response)
-      const responseJson = await response.json();
+      let responseJson = await response.json();
       console.log("Got the JSON!")
+      responseJson = JSON.stringify({RESULT: responseJson})
+      responseJson = JSON.parse(responseJson)
       console.log(responseJson)
+      console.log(typeof(responseJson))
+      console.log(responseJson[0])
       return responseJson;
     } catch (error) {
       console.error(error);
@@ -55,7 +59,9 @@ function App() {
     setTimeout(() => {
       console.log('1 second passed; reaching out for reply.');
     }, 1000);
-    toDisplay = await getReplyAsynch()
+    let temp = await getReplyAsynch()
+    toDisplay = temp
+    console.log("Updating toDisplay...")
     console.log(toDisplay)
       //.then(res => console.log(res))
       //.then(res => res.json())
