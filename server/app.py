@@ -1,11 +1,12 @@
 # Hello world!
 import os
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response, session
 import requests
 import random
 
 app = Flask(__name__)
 DEBUG = app.debug
+app.config["SECRET_KEY"] = "verysecretkey"
 API_KEY = "Bearer sW9VtHDsn6h_dkjQtZLewCsb2v1Cg9dHCoSX2oJHJXeVYvIuxJbCbO0daDiFe40iQG8rckCFOR1e_SXWSAMsCIfagLOjm0btopnwLc60UGEv1ak3Wz3pl_IlFgxgZHYx"
 URL = "https://api.yelp.com/v3/businesses/search"
 
@@ -13,6 +14,8 @@ headers = {
     "accept": "application/json",
     "Authorization": API_KEY
 }
+
+
 
 #####################################################
 # CORS section
@@ -57,7 +60,12 @@ def restaurant():
     response = requests.get(url, headers=headers)
     length = len(response.json()["businesses"])
     rand_business = random.randrange(0, length)
+    session["test"] = response.json()["businesses"][rand_business]
     return response.json()["businesses"][rand_business]["name"]
+
+@app.route('/testsession')
+def testsession():
+    return session["test"]
     
 
 if __name__ == '__main__':
