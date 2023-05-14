@@ -77,29 +77,32 @@ def storecache():
     # if type(response) == None:
     #     return
     print("CCC")
+    tmp = response.json()["businesses"]
+    print(tmp)
+    print(len(tmp))
     categories.append(response.json()["businesses"])
 
-    # url = URL + '?location=' + zipcode + "&categories=active&sort_by=best_match&limit=20"
+    url = URL + '?location=' + zipcode + "&categories=active&sort_by=best_match&limit=20"
 
-    # response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers)
     # # if type(response) == None:
     # #     return
-    # categories.append(response.json()["businesses"])
+    categories.append(response.json()["businesses"])
 
-    # url = URL + '?location=' + zipcode + "&categories=arts&sort_by=best_match&limit=20"
+    url = URL + '?location=' + zipcode + "&categories=arts&sort_by=best_match&limit=20"
 
-    # response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers)
     # # if type(response) == None:
     # #     return
-    # categories.append(response.json()["businesses"])
+    categories.append(response.json()["businesses"])
 
 
-    # url = URL + '?location=' + zipcode + "&categories=shopping&sort_by=best_match&limit=20"
+    url = URL + '?location=' + zipcode + "&categories=shopping&sort_by=best_match&limit=20"
 
-    # response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers)
     # # if type(response) == None:
     # #     return
-    # categories.append(response.json()["businesses"])
+    categories.append(response.json()["businesses"])
     print("AAA")
 
     cache.set("categories", categories)
@@ -107,6 +110,10 @@ def storecache():
     #session["test"] = response.json()["businesses"][rand_business]
 
     print("BBB")
+
+    for i in range(len(categories)):
+        randy = random.randrange(0, min(19, len(categories[i])))
+        categories[i] = categories[i][randy]
 
     return {'categories': categories} #sendjson() #response.json()["businesses"][rand_business]["name"]
 
