@@ -54,7 +54,8 @@ def restaurant():
     url = URL + '?location=' + zipcode + "&categories=food&sort_by=best_match&limit=20"
 
     response = requests.get(url, headers=headers)
-    return response.text
+    length = len(response.json()["businesses"])
+    return str(length) #response.json()["businesses"][0]["image_url"]
     
 
 if __name__ == '__main__':
