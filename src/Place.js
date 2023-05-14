@@ -49,8 +49,8 @@ const Place = () => {
 
               <Spacer />
 
-              <Button variant="solid" colorScheme="blue">
-                URL
+              <Button variant="solid" colorScheme="red">
+                URL to Yelp
               </Button>
             </div>
           </CardBody>
