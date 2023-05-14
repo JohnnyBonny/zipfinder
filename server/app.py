@@ -2,6 +2,7 @@
 import os
 from flask import Flask, request, jsonify, make_response
 import requests
+import random
 
 app = Flask(__name__)
 DEBUG = app.debug
@@ -55,7 +56,8 @@ def restaurant():
 
     response = requests.get(url, headers=headers)
     length = len(response.json()["businesses"])
-    return str(length) #response.json()["businesses"][0]["image_url"]
+    rand_business = random.randrange(0, length)
+    return response.json()["businesses"][rand_business]["name"]
     
 
 if __name__ == '__main__':
