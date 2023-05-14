@@ -1,12 +1,16 @@
 # Hello world!
 import os
 from flask import Flask, request, jsonify, make_response, session
+from flask_caching import Cache
 import requests
 import random
 
 app = Flask(__name__)
 DEBUG = app.debug
 app.config["SECRET_KEY"] = "verysecretkey"
+app.config["CACHE_TYPE"] = "SimpleCache"
+
+cache = Cache(app)
 API_KEY = "Bearer sW9VtHDsn6h_dkjQtZLewCsb2v1Cg9dHCoSX2oJHJXeVYvIuxJbCbO0daDiFe40iQG8rckCFOR1e_SXWSAMsCIfagLOjm0btopnwLc60UGEv1ak3Wz3pl_IlFgxgZHYx"
 URL = "https://api.yelp.com/v3/businesses/search"
 
@@ -51,40 +55,48 @@ def after_request_func(response):
 def hello():
     return 'Welcome to Zipfinder Server Home page'
 
+@app.route('/addzipcode', methods=['PUT'])
+def add_zipcode():
+    return "Success!"
 
 @app.route('/getrestaurant', methods=['GET'])
 def restaurant():
     zipcode = "90277" # Test Value
+
+    categories = []
     url = URL + '?location=' + zipcode + "&categories=food&sort_by=best_match&limit=20"
 
     response = requests.get(url, headers=headers)
-    session["food"] = response.json()["businesses"]
+    categories.append(response.json()["businesses"])
 
-    url = URL + '?location=' + zipcode + "&categories=food&sort_by=best_match&limit=20"
-
-    response = requests.get(url, headers=headers)
-    session["test2"] = response.json()["businesses"]
-
-    url = URL + '?location=' + zipcode + "&categories=food&sort_by=best_match&limit=20"
+    url = URL + '?location=' + zipcode + "&categories=active&sort_by=best_match&limit=20"
 
     response = requests.get(url, headers=headers)
-    session["test3"] = response.json()["businesses"]
+    categories.append(response.json()["businesses"])
 
-
-    url = URL + '?location=' + zipcode + "&categories=food&sort_by=best_match&limit=20"
+    url = URL + '?location=' + zipcode + "&categories=arts&sort_by=best_match&limit=20"
 
     response = requests.get(url, headers=headers)
-    session["test4"] = response.json()["businesses"]
+    categories.append(response.json()["businesses"])
+
+
+    url = URL + '?location=' + zipcode + "&categories=eventservices&sort_by=best_match&limit=20"
+
+    response = requests.get(url, headers=headers)
+    categories.append(response.json()["businesses"])
+
+    cache.set("categories", categories)
 
 
     length = len(response.json()["businesses"])
     rand_business = random.randrange(0, length)
-    session["test"] = response.json()["businesses"][rand_business]
-    return response.json()["businesses"][rand_business]["name"]
+    #session["test"] = response.json()["businesses"][rand_business]
+
+    return "Success!" #response.json()["businesses"][rand_business]["name"]
 
 @app.route('/testsession')
 def testsession():
-    return session["food"][0]
+    return cache.get("categories")
     
 
 if __name__ == '__main__':
