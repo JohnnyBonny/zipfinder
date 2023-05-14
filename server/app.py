@@ -108,7 +108,7 @@ def add_zipcode():
             req = data.get("value")
             #print(f"Handled malformed json: {request}")
             cache.set("zipcode", req)
-        return "Your zipcode is: " + cache.get("zipcode")
+        #return "Your zipcode is: " + cache.get("zipcode")
 
     return storecache()
 
@@ -117,7 +117,7 @@ def test_zipcode():
     if request.method == "POST":
         req = request.form.get("zip")
         cache.set("zipcode", req)
-        return "Your zipcode is: " + cache.get("zipcode")
+        return "Your zipcode is1: " + cache.get("zipcode")
 
     return render_template("form.html")
 
@@ -224,7 +224,7 @@ def geturl():
 @app.route('/sendjson')
 def sendjson():
     output = {}
-    output["RESULT"] = []
+    output = []
 
     try:
         for category in range(4):
@@ -240,13 +240,13 @@ def sendjson():
             else:
                 price = "N/A"
 
-            output["MESSAGE"] = "Successful retrieval"
+            #output["MESSAGE"] = "Successful retrieval"
 
-            output["RESULT"].append({"name": name, "address": address, "imageurl": imageurl, "rating": rating, "url": url, "price": price})
+            output.append({"name": name, "address": address, "imageurl": imageurl, "rating": rating, "url": url, "price": price})
             status = 200
     except Exception as e:
         print(e)
-        output["MESSAGE"] = f"Exception {e}"
+        #output["MESSAGE"] = f"Exception {e}"
         status = 500
 
     return jsonify(output), status

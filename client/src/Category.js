@@ -14,6 +14,7 @@ const Category = (props) => {
           rating={props.rating}
           price={props.price}
           url={props.url}
+          imageUrl={props.imageUrl}
         />
       </GridItem>
     </div>
