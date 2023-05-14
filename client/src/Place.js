@@ -11,7 +11,7 @@ import {
   Spacer,
 } from "@chakra-ui/react";
 
-const Place = () => {
+const Place = (props) => {
   return (
     <Box textAlign="center" fontSize="xl">
       <Card
@@ -29,28 +29,28 @@ const Place = () => {
         <Stack>
           <CardBody>
             <Heading size="md" textAlign="left">
-              Location Name
+              {props.location}
             </Heading>
 
             <Text fontSize="md" textAlign="left">
-              1111 Bruh Moment Drive
+              {props.address}
             </Text>
 
             <div align="left">
               <Tag colorScheme="yellow" marginRight="5px">
-                4 / 5★
+                {props.rating} / 5★
               </Tag>
 
               <Tag colorScheme="green" marginRight="5px">
-                $$
+                {props.price}
               </Tag>
 
-              <Tag colorScheme="blue">Open</Tag>
+              <Tag colorScheme="blue">{props.isOpen}</Tag>
 
               <Spacer />
 
-              <Button variant="solid" colorScheme="red">
-                URL to Yelp
+              <Button variant="solid" colorScheme="red" as="a" href={props.url}>
+                Link to Yelp
               </Button>
             </div>
           </CardBody>

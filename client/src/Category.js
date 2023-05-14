@@ -6,7 +6,7 @@ const Category = (props) => {
     <div style={{ padding: "0px 25px 25px 25px" }}>
       <Heading paddingBottom="10px" size="lg" textAlign="center">{props.name}</Heading>
       <Grid>
-        <Place />
+        <Place location={props.location} address={props.address} rating={props.rating} price={props.price} isOpen={props.isOpen} url={props.url}/>
       </Grid>
     </div>
   );

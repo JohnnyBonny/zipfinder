@@ -1,296 +1,74 @@
 import React from "react";
+import Category from "./Category";
+
 import {
   ChakraProvider,
-  Box,
-  Text,
   theme,
-  Card,
-  CardBody,
-  CardFooter,
-  Stack,
-  Image,
   Heading,
-  Button,
+  Spacer,
   Input,
-  Tag,
   Flex,
   Grid,
-  GridItem,
+  Button,
 } from "@chakra-ui/react";
 
 function App() {
   return (
     <div className="App">
       <ChakraProvider theme={theme}>
-        <Flex justify="center">
-          <Input placeholder="Zip Code" size="lg" width="auto" />
+        <Heading textAlign="center" padding="10px 0px 10px 0px" size="xl">
+          Zipfinder
+        </Heading>
+        <Spacer />
+
+        <Flex justify="center" paddingBottom="10px">
+          <Input placeholder="Enter a zip code" size="lg" width="auto" />
         </Flex>
 
-        <Heading>Clothing</Heading>
-
-        <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-          <Box textAlign="center" fontSize="xl">
-            <Card
-              direction={{ base: "column", sm: "row" }}
-              overflow="hidden"
-              variant="outline"
-            >
-              <Image
-                objectFit="cover"
-                maxW={{ base: "100%", sm: "200px" }}
-                src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-                alt="Caffe Latte"
-              />
-
-              <Stack>
-                <CardBody>
-                  <Heading size="md" textAlign="left">
-                    Location Name
-                  </Heading>
-
-                  <Text fontSize="md" textAlign="left">
-                    1111 Bruh Moment Drive
-                  </Text>
-
-                  <Tag colorScheme="yellow" marginRight="5px">
-                    4 / 5★
-                  </Tag>
-
-                  <Tag colorScheme="green" marginRight="5px">
-                    $$
-                  </Tag>
-
-                  <Tag colorScheme="blue">Open</Tag>
-                </CardBody>
-
-                <CardFooter>
-                  <Button variant="solid" colorScheme="blue">
-                    URL
-                  </Button>
-                </CardFooter>
-              </Stack>
-            </Card>
-          </Box>
-
-          <Box textAlign="center" fontSize="xl">
-            <Card
-              direction={{ base: "column", sm: "row" }}
-              overflow="hidden"
-              variant="outline"
-            >
-              <Image
-                objectFit="cover"
-                maxW={{ base: "100%", sm: "200px" }}
-                src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-                alt="Caffe Latte"
-              />
-
-              <Stack>
-                <CardBody>
-                  <Heading size="md" textAlign="left">
-                    Location Name
-                  </Heading>
-
-                  <Text fontSize="md" textAlign="left">
-                    1111 Bruh Moment Drive
-                  </Text>
-
-                  <Tag colorScheme="yellow" marginRight="5px">
-                    4 / 5★
-                  </Tag>
-
-                  <Tag colorScheme="green" marginRight="5px">
-                    $$
-                  </Tag>
-
-                  <Tag colorScheme="blue">Open</Tag>
-                </CardBody>
-
-                <CardFooter>
-                  <Button variant="solid" colorScheme="blue">
-                    URL
-                  </Button>
-                </CardFooter>
-              </Stack>
-            </Card>
-          </Box>
-
-          <Box textAlign="center" fontSize="xl">
-            <Card
-              direction={{ base: "column", sm: "row" }}
-              overflow="hidden"
-              variant="outline"
-            >
-              <Image
-                objectFit="cover"
-                maxW={{ base: "100%", sm: "200px" }}
-                src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-                alt="Caffe Latte"
-              />
-
-              <Stack>
-                <CardBody>
-                  <Heading size="md" textAlign="left">
-                    Location Name
-                  </Heading>
-
-                  <Text fontSize="md" textAlign="left">
-                    1111 Bruh Moment Drive
-                  </Text>
-
-                  <Tag colorScheme="yellow" marginRight="5px">
-                    4 / 5★
-                  </Tag>
-
-                  <Tag colorScheme="green" marginRight="5px">
-                    $$
-                  </Tag>
-
-                  <Tag colorScheme="blue">Open</Tag>
-                </CardBody>
-
-                <CardFooter>
-                  <Button variant="solid" colorScheme="blue">
-                    URL
-                  </Button>
-                </CardFooter>
-              </Stack>
-            </Card>
-          </Box>
+        <Grid templateColumns="repeat(2, 2fr)" gap={1} padding="0% 15% 0% 15%">
+          <Category
+            name="🍽️ Food"
+            location="Location 1"
+            address="1111 Bruh Moment Drive"
+            rating="4"
+            price="$$"
+            isOpen="Open"
+            url="http://google.com"
+          />
+          <Category
+            name="🚲 Recreation"
+            location="Location 2"
+            address="1111 Bruh Moment Drive"
+            rating="4"
+            price="$$"
+            isOpen="Open"
+            url="http://facebook.com"
+          />
+          <Category
+            name="🎥 Arts & Entertainment"
+            location="Location 3"
+            address="1111 Bruh Moment Drive"
+            rating="4"
+            price="$$$"
+            isOpen="Open"
+            url="http://linkedin.com"
+          />
+          <Category
+            name="🛍️ Shopping"
+            location="Location 4"
+            address="1111 Bruh Moment Drive"
+            rating="4"
+            price="$"
+            isOpen="Open"
+            url="http://twitter.com"
+          />
         </Grid>
 
-        <Heading>Clothing</Heading>
-
-        <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-          <Box textAlign="center" fontSize="xl">
-            <Card
-              direction={{ base: "column", sm: "row" }}
-              overflow="hidden"
-              variant="outline"
-            >
-              <Image
-                objectFit="cover"
-                maxW={{ base: "100%", sm: "200px" }}
-                src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-                alt="Caffe Latte"
-              />
-
-              <Stack>
-                <CardBody>
-                  <Heading size="md" textAlign="left">
-                    Location Name
-                  </Heading>
-
-                  <Text fontSize="md" textAlign="left">
-                    1111 Bruh Moment Drive
-                  </Text>
-
-                  <Tag colorScheme="yellow" marginRight="5px">
-                    4 / 5★
-                  </Tag>
-
-                  <Tag colorScheme="green" marginRight="5px">
-                    $$
-                  </Tag>
-
-                  <Tag colorScheme="blue">Open</Tag>
-                </CardBody>
-
-                <CardFooter>
-                  <Button variant="solid" colorScheme="blue">
-                    URL
-                  </Button>
-                </CardFooter>
-              </Stack>
-            </Card>
-          </Box>
-
-          <Box textAlign="center" fontSize="xl">
-            <Card
-              direction={{ base: "column", sm: "row" }}
-              overflow="hidden"
-              variant="outline"
-            >
-              <Image
-                objectFit="cover"
-                maxW={{ base: "100%", sm: "200px" }}
-                src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-                alt="Caffe Latte"
-              />
-
-              <Stack>
-                <CardBody>
-                  <Heading size="md" textAlign="left">
-                    Location Name
-                  </Heading>
-
-                  <Text fontSize="md" textAlign="left">
-                    1111 Bruh Moment Drive
-                  </Text>
-
-                  <Tag colorScheme="yellow" marginRight="5px">
-                    4 / 5★
-                  </Tag>
-
-                  <Tag colorScheme="green" marginRight="5px">
-                    $$
-                  </Tag>
-
-                  <Tag colorScheme="blue">Open</Tag>
-                </CardBody>
-
-                <CardFooter>
-                  <Button variant="solid" colorScheme="blue">
-                    URL
-                  </Button>
-                </CardFooter>
-              </Stack>
-            </Card>
-          </Box>
-
-          <Box textAlign="center" fontSize="xl">
-            <Card
-              direction={{ base: "column", sm: "row" }}
-              overflow="hidden"
-              variant="outline"
-            >
-              <Image
-                objectFit="cover"
-                maxW={{ base: "100%", sm: "200px" }}
-                src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-                alt="Caffe Latte"
-              />
-
-              <Stack>
-                <CardBody>
-                  <Heading size="md" textAlign="left">
-                    Location Name
-                  </Heading>
-
-                  <Text fontSize="md" textAlign="left">
-                    1111 Bruh Moment Drive
-                  </Text>
-
-                  <Tag colorScheme="yellow" marginRight="5px">
-                    4 / 5★
-                  </Tag>
-
-                  <Tag colorScheme="green" marginRight="5px">
-                    $$
-                  </Tag>
-
-                  <Tag colorScheme="blue">Open</Tag>
-                </CardBody>
-
-                <CardFooter>
-                  <Button variant="solid" colorScheme="blue">
-                    URL
-                  </Button>
-                </CardFooter>
-              </Stack>
-            </Card>
-          </Box>
-        </Grid>
+        <div align="center">
+          <Button justify="center" color="white" colorScheme="teal" size="lg">
+            Refresh all locations
+          </Button>
+        </div>
       </ChakraProvider>
     </div>
   );
