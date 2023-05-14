@@ -61,7 +61,12 @@ def hello():
 def storecache():
     zipcode = cache.get("zipcode")
 
+    if type(zipcode) == None:
+        return
+
     categories = []
+    print(f"Zipcode type: {type(zipcode)} and value: {zipcode}")
+    print(f"URL: {URL}")
     url = URL + '?location=' + zipcode + "&categories=food%2Crestaurants%20&sort_by=best_match&limit=20"
 
     response = requests.get(url, headers=headers)
@@ -97,18 +102,18 @@ def testsession():
 def add_zipcode():
     if request.method == "POST":
         if request.is_json:
-            #print(f"Request is: {request}, type is {type(request)}")
-            #print(f"Is it a json: {request.is_json}")
+            print(f"Request is: {request}, type is {type(request)}")
+            print(f"Is it a json: {request.is_json}")
             req = request.json.get("value")
-            #print(f"Req is: {req}")
-            #print(f"Type of request: {type(req)}\n Request contents:{req}")
+            print(f"Req is: {req}")
+            print(f"Type of request: {type(req)}\n Request contents:{req}")
             cache.set("zipcode", req)
         else:
             data = json.loads(request.data)
             req = data.get("value")
-            #print(f"Handled malformed json: {request}")
+            print(f"Handled malformed json: {request}")
             cache.set("zipcode", req)
-        return "Your zipcode is: " + cache.get("zipcode")
+        #return "Your zipcode is: " + cache.get("zipcode")
 
     return storecache()
 
@@ -228,8 +233,9 @@ def sendjson():
 
     try:
         for category in range(4):
-            rand_business = random.randrange(0, 19)
-            p = (cache.get("categories")[category][rand_business])
+            c = (cache.get("catgories")[category])
+            rand_business = random.randrange(0, min(19, len(c)))
+            p = c[rand_business]
             name = p["name"]
             address = p["location"]["display_address"]
             imageurl = p["image_url"]
