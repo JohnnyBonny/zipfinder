@@ -23,7 +23,6 @@ function App() {
               Zipfinder
             </Heading>
             <Spacer />
-
             <Flex justify="center" paddingBottom="10px">
               <Input placeholder="Enter a zip code" size="lg" width="auto" />
             </Flex>
@@ -35,7 +34,6 @@ function App() {
               address="1111 Bruh Moment Drive"
               rating="4"
               price="$$"
-              isOpen="Open"
               url="http://google.com"
             />
           </GridItem>
@@ -46,7 +44,6 @@ function App() {
               address="1111 Bruh Moment Drive"
               rating="4"
               price="$$"
-              isOpen="Open"
               url="http://facebook.com"
             />
           </GridItem>
@@ -57,7 +54,6 @@ function App() {
               address="1111 Bruh Moment Drive"
               rating="4"
               price="$$$"
-              isOpen="Open"
               url="http://linkedin.com"
             />
           </GridItem>
@@ -68,13 +64,18 @@ function App() {
               address="1111 Bruh Moment Drive"
               rating="4"
               price="$"
-              isOpen="Open"
               url="http://twitter.com"
             />
           </GridItem>
           <GridItem colSpan={2}>
-            <Flex align="center" justify='center'>
-              <Button color="white" colorScheme="teal" size="lg" justifyContents='flex-start'>
+            <Flex align="center" justify="center">
+              <Button
+                color="white"
+                colorScheme="teal"
+                size="lg"
+                justifyContents="flex-start"
+                marginBottom="10px"
+              >
                 Refresh all locations
               </Button>
             </Flex>

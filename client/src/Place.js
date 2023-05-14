@@ -45,8 +45,6 @@ const Place = (props) => {
                 {props.price}
               </Tag>
 
-              <Tag colorScheme="blue">{props.isOpen}</Tag>
-
               <Spacer />
 
               <Button variant="solid" colorScheme="red" as="a" href={props.url}>
