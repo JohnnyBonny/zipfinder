@@ -19,18 +19,16 @@ function App() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const data = { name: value };
-    console.log('submit');
-    console.log(value);
     fetch('http://127.0.0.1:5000/addzipcode', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({value: value}),
     })
-      .then(res => res.json())
-      .then(res => console.log(res));
+      //.then(res => console.log(res))
+      //.then(res => res.json())
+      //.then(res => console.log(res));
   }
 
   function handleValue(e) {
