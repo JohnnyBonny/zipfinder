@@ -96,7 +96,7 @@ def testsession():
 @app.route('/addzipcode', methods=['GET', 'POST'])
 def add_zipcode():
     if request.method == "POST":
-        req = request.get("zipcode")
+        req = request.json.get("body")
         cache.set("zipcode", req)
         return "Your zipcode is: " + cache.get("zipcode")
 

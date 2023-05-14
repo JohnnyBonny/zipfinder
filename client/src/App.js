@@ -1,5 +1,5 @@
-import React from "react";
-import Category from "./Category";
+import React from 'react';
+import Category from './Category';
 
 import {
   ChakraProvider,
@@ -11,9 +11,32 @@ import {
   Grid,
   GridItem,
   Button,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 function App() {
+  const [value, setValue] = React.useState('');
+  const handleChange = event => setValue(event.target.value);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const data = { name: value };
+    console.log('submit');
+    console.log(value);
+    fetch('http://127.0.0.1:5000/addzipcode', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(res => res.json())
+      .then(res => console.log(res));
+  }
+
+  function handleValue(e) {
+    setValue(e.target.value);
+  }
+
   return (
     <div className="App">
       <ChakraProvider theme={theme}>
@@ -24,7 +47,15 @@ function App() {
             </Heading>
             <Spacer />
             <Flex justify="center" paddingBottom="10px">
-              <Input placeholder="Enter a zip code" size="lg" width="auto" />
+              <form action="" onSubmit={handleSubmit}>
+                <Input
+                  value={value}
+                  onChange={handleValue}
+                  placeholder="Enter a zip code"
+                  size="lg"
+                  width="auto"
+                />
+              </form>
             </Flex>
           </GridItem>
           <GridItem>
@@ -73,7 +104,7 @@ function App() {
                 color="white"
                 colorScheme="teal"
                 size="lg"
-                justifyContents="flex-start"
+                justifycontents="flex-start"
                 marginBottom="10px"
               >
                 Refresh all locations
